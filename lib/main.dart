@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///E:/LibraryOfTheWeakFlutter/flutter_dio/lib/pages/dio_example.dart';
+import 'package:flutterdio/pages/dio_example.dart';
 
 void main() {
   runApp(MyApp());

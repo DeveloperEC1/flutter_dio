@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdio/models/place_response.dart';
@@ -15,6 +13,7 @@ class DioExample extends StatefulWidget {
 class _DioExampleState extends State<DioExample> {
   List<Results> _results = List();
   Dio _dio = new Dio();
+  String _API_KEY = 'API_KEY';
 
   @override
   void initState() {
@@ -49,18 +48,17 @@ class _DioExampleState extends State<DioExample> {
     );
   }
 
-  Future _getUsers() {
-    var url =
-        'http://api.themoviedb.org/3/search/movie?/&query=movie&api_key=API_KEY';
-    return _dio.get(url);
-  }
-
   Future _responseJson() async {
-    _getUsers().then((response) {
+    var url =
+        'http://api.themoviedb.org/3/search/movie?/&query=q&api_key=$_API_KEY';
+    final response = await _dio.get(url);
+    if (response.statusCode == 200) {
       setState(() {
         _results = MovieResponse.parseResults(response.data['results']);
-        print(_results[0].title);
       });
-    });
+    } else {
+      throw Exception('An error occurred getting places nearby');
+    }
+    return _dio.get(url);
   }
 }
