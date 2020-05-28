@@ -13,6 +13,7 @@ class DioExample extends StatefulWidget {
 class _DioExampleState extends State<DioExample> {
   List<Results> _results = List();
   Dio _dio = new Dio();
+  bool _search = true;
   String _API_KEY = 'API_KEY';
 
   @override
@@ -31,16 +32,18 @@ class _DioExampleState extends State<DioExample> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _results.length,
-                  itemBuilder: (context, i) {
-                    return ListTile(
-                      title: Text(_results[i].title),
-                    );
-                  },
-                ),
-              ),
+              _search
+                  ? CircularProgressIndicator()
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: _results.length,
+                        itemBuilder: (context, i) {
+                          return ListTile(
+                            title: Text(_results[i].title),
+                          );
+                        },
+                      ),
+                    ),
             ],
           ),
         ),
@@ -50,11 +53,12 @@ class _DioExampleState extends State<DioExample> {
 
   Future _responseJson() async {
     var url =
-        'http://api.themoviedb.org/3/search/movie?/&query=q&api_key=$_API_KEY';
+        'http://api.themoviedb.org/3/search/movie?/&query=Movie&api_key=$_API_KEY';
     final response = await _dio.get(url);
     if (response.statusCode == 200) {
       setState(() {
         _results = MovieResponse.parseResults(response.data['results']);
+        _search = false;
       });
     } else {
       throw Exception('An error occurred getting places nearby');
