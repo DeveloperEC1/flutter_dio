@@ -14,7 +14,7 @@ class _DioExampleState extends State<DioExample> {
   List<Results> _results = List();
   Dio _dio = new Dio();
   bool _search = true;
-  String _API_KEY = '4e0be2c22f7268edffde97481d49064a';
+  String _API_KEY = 'API_KEY';
 
   @override
   void initState() {
