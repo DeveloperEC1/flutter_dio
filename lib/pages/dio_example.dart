@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdio/models/place_response.dart';
+import 'package:flutterdio/models/movie_response.dart';
 import 'package:flutterdio/models/results.dart';
 
 class DioExample extends StatefulWidget {
@@ -14,7 +14,7 @@ class _DioExampleState extends State<DioExample> {
   List<Results> _results = List();
   Dio _dio = new Dio();
   bool _search = true;
-  String _API_KEY = 'API_KEY';
+  String _API_KEY = '4e0be2c22f7268edffde97481d49064a';
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _DioExampleState extends State<DioExample> {
         _search = false;
       });
     } else {
-      throw Exception('An error occurred getting places nearby');
+      throw Exception('An error occurred getting movies');
     }
     return _dio.get(url);
   }
